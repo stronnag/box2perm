@@ -53,15 +53,15 @@ The 2.5 `box2perm` output is:
 
 ```
 # aux
-aux 0 0 5 1500 2100		    #  0 =>  0 (ARM)
-aux 1 3 0 1300 1700		    #  3 =>  3 (NAV ALTHOLD)
-aux 2 3 2 1300 1700		    #  3 =>  3 (NAV ALTHOLD)
-aux 3 11 0 1300 1700		#  9 => 11 (NAV POSHOLD)
-aux 4 10 0 1700 2100		#  8 => 10 (NAV RTH)
-aux 5 28 1 1700 2100		# 19 => 28 (NAV WP)
-aux 6 45 2 1300 1700		# 35 => 45 (NAV CRUISE)
-aux 7 12 6 1450 2100		# 10 => 12 (MANUAL)
-aux 8 36 3 1600 2100		# 14 => 36 (NAV LAUNCH)
+aux 0 0 5 1500 2100         #  0 =>  0 (ARM)
+aux 1 3 0 1300 1700         #  3 =>  3 (NAV ALTHOLD)
+aux 2 3 2 1300 1700         #  3 =>  3 (NAV ALTHOLD)
+aux 3 11 0 1300 1700        #  9 => 11 (NAV POSHOLD)
+aux 4 10 0 1700 2100        #  8 => 10 (NAV RTH)
+aux 5 28 1 1700 2100        # 19 => 28 (NAV WP)
+aux 6 45 2 1300 1700        # 35 => 45 (NAV CRUISE)
+aux 7 12 6 1450 2100        # 10 => 12 (MANUAL)
+aux 8 36 3 1600 2100        # 14 => 36 (NAV LAUNCH)
 ```
 The addition text will be ignored by the inav CLI and provides verification to the user that the mode lines have been updated. The final line of output will be as:
 
@@ -73,6 +73,6 @@ The addition text will be ignored by the inav CLI and provides verification to t
 
 `box2perm` is (c) Jonathan Hudson 2020
 
-License : Public domain / BSD / MIT / WTF i.e. what ever is the most permissive in your locale.
+License : MIT / Public domain / BSD / WTF i.e. what ever is the most permissive in your locale.
 
 E&OE. No warranty
