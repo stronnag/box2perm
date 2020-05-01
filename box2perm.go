@@ -7,12 +7,13 @@
  *
  * (c) Jonathan Hudson 2020
  * License : Public domain / BSD / MIT / WTF
- *           i.e. was ever is the most permissive in your locale
+ *           i.e. whar ever is the most permissive in your locale
  */
 
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"io"
@@ -107,13 +108,21 @@ func openStdoutOrFile(path string) (io.WriteCloser, error) {
 func main() {
 	var inpfn=""
 	var outfn=""
-	nargs := len(os.Args[1:])
+
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: box2perm {infile|-} [outfile|-]\n")
+		flag.PrintDefaults()
+	}
+
+	flag.Parse()
+
+	nargs := len(flag.Args())
 	switch nargs {
 	case 2:
-		outfn = os.Args[2]
+		outfn = flag.Args()[2]
 		fallthrough
 	case 1:
-		inpfn = os.Args[1]
+		inpfn = flag.Args()[1]
 	}
 
 	input,err := openStdinOrFile(inpfn)

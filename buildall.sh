@@ -13,7 +13,7 @@ done
 
 GOOS=linux GOARCH=arm GOARM=7 go build -o $REL_BASE/linux-arm7/box2perm/$APP
 GOOS=linux GOARCH=386 go build -o $REL_BASE/linux-ia32/$APP
-go build -o $REL_BASE/linux-x86_64/$APP
+go build && cp $APP $REL_BASE/linux-x86_64/box2perm
 GOOS=windows GOARCH=386 go build -o $REL_BASE/win32/$APP.exe
 GOOS=darwin GOARCH=amd64 go build -o $REL_BASE/darwin/$APP
 
