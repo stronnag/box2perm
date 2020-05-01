@@ -119,10 +119,10 @@ func main() {
 	nargs := len(flag.Args())
 	switch nargs {
 	case 2:
-		outfn = flag.Args()[2]
+		outfn = flag.Args()[1]
 		fallthrough
 	case 1:
-		inpfn = flag.Args()[1]
+		inpfn = flag.Args()[0]
 	}
 
 	input,err := openStdinOrFile(inpfn)
@@ -151,15 +151,17 @@ func main() {
 			minor,_ := strconv.Atoi(m[0][2])
 			mon := monstrings[m[0][3]]
 			day,_ := strconv.Atoi(m[0][4])
-
 			doconv = (major == 2 && (minor < 5 || (minor == 5 && (mon < FLAGMON || (mon == FLAGMON && day < FLAGDAY)))))
 		}
 		if strings.HasPrefix(line, "aux") && doconv  {
 			a := strings.Split(line, " ")
 			boxid,_ :=  strconv.Atoi(a[2])
-			p := box2perm[boxid]
-			line = fmt.Sprintf("aux %s %d %s %s %s", a[1], p.permid, a[3], a[4], a[5])
-			fmt.Fprintf(os.Stderr, "# %2d => %2d (%s)\n", boxid, p.permid, p.name)
+			// only updates lines with 'set' values
+			if !(a[4] == "900" && a[5] == "900") {
+				p := box2perm[boxid]
+				line = fmt.Sprintf("aux %s %d %s %s %s\t\t# %2d => %2d (%s)",
+					a[1], p.permid, a[3], a[4], a[5], boxid, p.permid, p.name)
+			}
 		}
 		fmt.Fprintln(output, line)
 	}

@@ -21,6 +21,8 @@ If inav CLI `diff` or `dump` files are used to migrate setting from an earlier f
 
 `box2perm` is a simple command line application that migrates pre-2.5 `diff` or `dump` files to 2.5 format.
 
+Binaries are provides for Linux (ia32, x86-64, arm7), FreeBSD (x86-64), Windows (win32) and MacOS (darwin) in the release area. `box2perm` has no external dependencies and should build /run on any platform where Go is available.
+
 `box2perm` takes two parameters, the input file and the output file. If either of these is `-` or missing, then `stdin` / `stdout` are used.
 
 ## example
@@ -47,31 +49,21 @@ aux 7 10 6 1450 2100
 aux 8 14 3 1600 2100
 ```
 
-The 2.5 output is:
+The 2.5 `box2perm` output is:
 
 ```
 # aux
-#  0 =>  0 (ARM)
-aux 0 0 5 1500 2100
-#  3 =>  3 (NAV ALTHOLD)
-aux 1 3 0 1300 1700
-#  3 =>  3 (NAV ALTHOLD)
-aux 2 3 2 1300 1700
-#  9 => 11 (NAV POSHOLD)
-aux 3 11 0 1300 1700
-#  8 => 10 (NAV RTH)
-aux 4 10 0 1700 2100
-# 19 => 28 (NAV WP)
-aux 5 28 1 1700 2100
-# 35 => 45 (NAV CRUISE)
-aux 6 45 2 1300 1700
-# 10 => 12 (MANUAL)
-aux 7 12 6 1450 2100
-# 14 => 36 (NAV LAUNCH)
-aux 8 36 3 1600 2100
+aux 0 0 5 1500 2100		    #  0 =>  0 (ARM)
+aux 1 3 0 1300 1700		    #  3 =>  3 (NAV ALTHOLD)
+aux 2 3 2 1300 1700		    #  3 =>  3 (NAV ALTHOLD)
+aux 3 11 0 1300 1700		#  9 => 11 (NAV POSHOLD)
+aux 4 10 0 1700 2100		#  8 => 10 (NAV RTH)
+aux 5 28 1 1700 2100		# 19 => 28 (NAV WP)
+aux 6 45 2 1300 1700		# 35 => 45 (NAV CRUISE)
+aux 7 12 6 1450 2100		# 10 => 12 (MANUAL)
+aux 8 36 3 1600 2100		# 14 => 36 (NAV LAUNCH)
 ```
-
-and the final line of output will be as:
+The addition text will be ignored by the inav CLI and provides verification to the user that the mode lines have been updated. The final line of output will be as:
 
 ```
 ### inav 2.5 aux conversion by box2perm 2020-05-01T14:08:03+0100 ###
