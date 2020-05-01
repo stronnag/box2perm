@@ -1,6 +1,9 @@
 box2perm - inav 2.5.0 AUX update
 ================================
 
+**Binaries will not be published until #5654 is merged in inav-dev**
+**The flag date in box2perm.go will be finalised once the merge happens**
+
 # Introduction
 
 ianv 2.5 changes the mode ID from using a `boxId` to a `permanentId`.

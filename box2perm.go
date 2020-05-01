@@ -105,6 +105,10 @@ func openStdoutOrFile(path string) (io.WriteCloser, error) {
         return w, err
 }
 
+var (
+	force = flag.Bool("force", false, "Forces update regardless of version")
+)
+
 func main() {
 	var inpfn=""
 	var outfn=""
@@ -141,17 +145,19 @@ func main() {
 
 	r := regexp.MustCompile(`^# INAV\/\S+ (\d+)\.(\d+)\.\d+ (\S+) (\d+) \d+ `)
 
-	var doconv bool
+	doconv := *force
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		line := scanner.Text()
-		m := r.FindAllStringSubmatch(line,-1)
-		if len(m) > 0 {
-			major,_ := strconv.Atoi(m[0][1])
-			minor,_ := strconv.Atoi(m[0][2])
-			mon := monstrings[m[0][3]]
-			day,_ := strconv.Atoi(m[0][4])
-			doconv = (major == 2 && (minor < 5 || (minor == 5 && (mon < FLAGMON || (mon == FLAGMON && day < FLAGDAY)))))
+		if !doconv {
+			m := r.FindAllStringSubmatch(line,-1)
+			if len(m) > 0 {
+				major,_ := strconv.Atoi(m[0][1])
+				minor,_ := strconv.Atoi(m[0][2])
+				mon := monstrings[m[0][3]]
+				day,_ := strconv.Atoi(m[0][4])
+				doconv = (major == 2 && (minor < 5 || (minor == 5 && (mon < FLAGMON || (mon == FLAGMON && day < FLAGDAY)))))
+			}
 		}
 		if strings.HasPrefix(line, "aux") && doconv  {
 			a := strings.Split(line, " ")
