@@ -13,12 +13,14 @@ ianv 2.5 changes the mode ID from using a `boxId` to a `permanentId`.
 
 Thus, this is a one-off change that is intrusive and disruptive for inav 2.5 but will result in a better user experience in the future.
 
-# Update required
+# `diff` / `dump` updates required
 
 If inav CLI `diff` or `dump` files are used to migrate setting from an earlier firmware revision to inav 2.5, then the user will have to either:
 
 * Remove all `aux` settings and manually recreate them; or
 * Update the source `diff` or `dump`
+  * `box2perm` is a cross-platform, command line tool to automate the process
+  * Manually edit the file, using the information in the [table below](#additional-information).
 
 # using `box2perm`
 
@@ -79,3 +81,52 @@ The addition text will be ignored by the inav CLI and provides verification to t
 License : MIT / Public domain / BSD / WTF i.e. what ever is the most permissive in your locale.
 
 E&OE. No warranty
+
+# Additional information
+
+The table illustrates the conversion between `boxId` and `permanentId`. This may be used to manually update a `diff` or `dump`.
+
+| Box Id | Name            | Permanent Id |
+| ------ | --------------- | ------------ |
+| 0 | ARM | 0 |
+| 1 | ANGLE | 1 |
+| 2 | HORIZON | 2 |
+| 3 | NAV ALTHOLD | 3 |
+| 4 | HEADING HOLD | 5 |
+| 5 | HEADFREE | 6 |
+| 6 | HEADADJ | 7 |
+| 7 | CAMSTAB | 8 |
+| 8 | NAV RTH | 10 |
+| 9 | NAV POSHOLD | 11 |
+| 10 | MANUAL | 12 |
+| 11 | BEEPER | 13 |
+| 12 | LEDLOW | 15 |
+| 13 | LIGHTS | 16 |
+| 15 | OSD SW | 19 |
+| 16 | TELEMETRY | 20 |
+| 28 | AUTO TUNE | 21 |
+| 17 | BLACKBOX | 26 |
+| 18 | FAILSAFE | 27 |
+| 19 | NAV WP | 28 |
+| 20 | AIR MODE | 29 |
+| 21 | HOME RESET | 30 |
+| 22 | GCS NAV | 31 |
+| 39 | FPV ANGLE MIX | 32 |
+| 24 | SURFACE | 33 |
+| 25 | FLAPERON | 34 |
+| 26 | TURN ASSIST | 35 |
+| 14 | NAV LAUNCH | 36 |
+| 27 | SERVO AUTOTRIM | 37 |
+| 23 | KILLSWITCH | 38 |
+| 29 | CAMERA CONTROL 1 | 39 |
+| 30 | CAMERA CONTROL 2 | 40 |
+| 31 | CAMERA CONTROL 3 | 41 |
+| 32 | OSD ALT 1 | 42 |
+| 33 | OSD ALT 2 | 43 |
+| 34 | OSD ALT 3 | 44 |
+| 35 | NAV CRUISE | 45 |
+| 36 | MC BRAKING | 46 |
+| 37 | USER1 | 47 |
+| 38 | USER2 | 48 |
+| 40 | LOITER CHANGE | 49 |
+| 41 | MSP RC OVERRIDE | 50 |
