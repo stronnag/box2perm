@@ -136,20 +136,16 @@ func main() {
 		log.Fatal("Can't open input file\n")
 	}
 
-	output,err := openStdoutOrFile(outfn)
-	if err == nil {
-		defer output.Close()
-	}  else {
-		log.Fatal("Can't open output file\n")
-	}
+	sb := strings.Builder{}
 
-	r := regexp.MustCompile(`^# INAV\/\S+ (\d+)\.(\d+)\.\d+ (\S+) (\d+) \d+ `)
+	r := regexp.MustCompile(`^# INAV\/\S+\s+(\d+)\.(\d+)\.\d+\s+(\S+)\s+(\d+)\s+\d+ `)
 
+	init := false
 	doconv := *force
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if !doconv {
+		if !doconv && !init {
 			m := r.FindAllStringSubmatch(line,-1)
 			if len(m) > 0 {
 				major,_ := strconv.Atoi(m[0][1])
@@ -157,11 +153,21 @@ func main() {
 				mon := monstrings[m[0][3]]
 				day,_ := strconv.Atoi(m[0][4])
 				doconv = (major == 2 && (minor < 5 || (minor == 5 && (mon < FLAGMON || (mon == FLAGMON && day < FLAGDAY)))))
+				init = true
+				if !doconv {
+					fmt.Fprintln(os.Stderr,"No conversion required")
+					return
+				}
 			}
 		}
-		if strings.HasPrefix(line, "aux") && doconv  {
+		if init && doconv && strings.HasPrefix(line, "aux") {
 			a := strings.Split(line, " ")
 			boxid,_ :=  strconv.Atoi(a[2])
+			if boxid >= len(box2perm) {
+				fmt.Fprintf(os.Stderr, "Invalid ID %d at \"%s\", no conversion performed\n",
+					boxid, line)
+				return
+			}
 			// only updates lines with 'set' values
 			if !(a[4] == "900" && a[5] == "900") {
 				p := box2perm[boxid]
@@ -169,10 +175,20 @@ func main() {
 					a[1], p.permid, a[3], a[4], a[5], boxid, p.permid, p.name)
 			}
 		}
-		fmt.Fprintln(output, line)
+		fmt.Fprintln(&sb, line)
 	}
 	if doconv {
-		fmt.Fprintf(output, "### inav 2.5 aux conversion by box2perm %s ###\n",
+		fmt.Fprintf(&sb, "### inav 2.5 aux conversion by box2perm %s ###\n",
 			time.Now().Format("2006-01-02T15:04:05-0700"))
 	}
+
+	output,err := openStdoutOrFile(outfn)
+	if err == nil {
+		output.Write([]byte(sb.String()))
+		defer output.Close()
+	}  else {
+		log.Fatal("Can't open output file\n")
+	}
+
+
 }
