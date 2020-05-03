@@ -25,7 +25,7 @@ import (
 	"time"
 )
 
-const FLAGDAY = 15
+const FLAGDAY = 4
 const FLAGMON = 5
 
 var box2perm = []struct {

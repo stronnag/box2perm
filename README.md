@@ -1,28 +1,25 @@
 box2perm - inav 2.5.0 AUX update
 ================================
 
-**Binaries will not be published until #5654 is merged in inav-dev**
-**The flag date in box2perm.go will be finalised once the merge happens**
-
 # Introduction
 
-ianv 2.5 changes the mode ID from using a `boxId` to a `permanentId`.
+ianv 2.5 changes the `aux` mode ID from using a `boxId` to a `permanentId`.
 
 * `boxid`s are not guaranteed to be constant between releases
-* `permid`s are guaranteed to be constant between releases (clue's in the name).
+* `permid`s are guaranteed to be constant between releases (the clue is in the name).
 
-Thus, this is a one-off change that is intrusive and disruptive for inav 2.5 but will result in a better user experience in the future.
+**This is a one-off change that is intrusive and disruptive for inav 2.5 but will result in a more consistent user experience in the future.**
 
 # `diff` / `dump` updates required
 
 If inav CLI `diff` or `dump` files are used to migrate setting from an earlier firmware revision to inav 2.5, then the user will have to either:
 
 * Remove all `aux` settings and manually recreate them; or
-* Update the source `diff` or `dump`
-  * `box2perm` is a cross-platform, command line tool to automate the process
-  * Manually edit the file, using the information in the [table below](#additional-information).
+* Update the source `diff` or `dump`, either:
+  * using `box2perm` a cross-platform, command line tool to automate the process; or
+  * manually edit the file, using the information in the [table below](#additional-information).
 
-# using `box2perm`
+# `box2perm`
 
 `box2perm` is a simple command line application that migrates pre-2.5 `diff` or `dump` files to 2.5 format.
 
@@ -68,7 +65,7 @@ aux 6 45 2 1300 1700        # 35 => 45 (NAV CRUISE)
 aux 7 12 6 1450 2100        # 10 => 12 (MANUAL)
 aux 8 36 3 1600 2100        # 14 => 36 (NAV LAUNCH)
 ```
-The addition text will be ignored by the inav CLI and provides verification to the user that the mode lines have been updated. The final line of output will be as:
+The addition text after the upper range will be ignored by the inav CLI and provides verification to the user that the mode lines have been updated. The final line of `box2perm` output will be as:
 
 ```
 ### inav 2.5 aux conversion by box2perm 2020-05-01T14:08:03+0100 ###
