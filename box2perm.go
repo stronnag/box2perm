@@ -7,7 +7,7 @@
  *
  * (c) Jonathan Hudson 2020
  * License : Public domain / BSD / MIT / WTF
- *           i.e. whar ever is the most permissive in your locale
+ *           i.e. what ever is the most permissive in your locale
  */
 
 package main
