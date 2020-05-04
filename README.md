@@ -5,8 +5,8 @@ box2perm - inav 2.5.0 AUX update
 
 ianv 2.5 changes the `aux` mode ID from using a `boxId` to a `permanentId`.
 
-* `boxid`s are not guaranteed to be constant between releases
-* `permid`s are guaranteed to be constant between releases (the clue is in the name).
+* `boxid` are not guaranteed to be constant between releases
+* `permanentId` are guaranteed to be constant between releases (the clue is in the name).
 
 **This is a one-off change that is intrusive and disruptive for inav 2.5 but will result in a more consistent user experience in the future.**
 
@@ -23,7 +23,7 @@ If inav CLI `diff` or `dump` files are used to migrate setting from an earlier f
 
 `box2perm` is a simple command line application that migrates pre-2.5 `diff` or `dump` files to 2.5 format.
 
-Binaries are provides for Linux (ia32, x86-64, arm7), FreeBSD (x86-64), Windows (win32) and MacOS (darwin) in the release area. `box2perm` has no external dependencies and should build /run on any platform where Go is available.
+Binaries are provides for Linux (ia32, x86-64, arm7), FreeBSD (x86-64), Windows (win32) and MacOS (darwin) in the [release area](https://github.com/stronnag/box2perm/releases). `box2perm` has no external dependencies and should build /run on any platform where Go is available.
 
 `box2perm` takes two parameters, the input file and the output file. If either of these is `-` or missing, then `stdin` / `stdout` are used.
 
