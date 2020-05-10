@@ -23,6 +23,8 @@ If inav CLI `diff` or `dump` files are used to migrate setting from an earlier f
 
 `box2perm` is a simple command line application that migrates pre-2.5 `diff` or `dump` files to 2.5 format.
 
+**Your diff / dump must have an initial version line (`# INAV/...`). This is to protect against bad things like trying to update 2.5+ (or pre 2.0) settings.**
+
 Binaries are provides for Linux (ia32, x86-64, arm7), FreeBSD (x86-64), Windows (win32) and MacOS (darwin) in the [release area](https://github.com/stronnag/box2perm/releases). `box2perm` has no external dependencies and should build /run on any platform where Go is available.
 
 `box2perm` takes two parameters, the input file and the output file. If either of these is `-` or missing, then `stdin` / `stdout` are used.
@@ -41,7 +43,7 @@ $ ./box2perm mydiff-2.4.txt mydiff-2.5.txt
 
 ## sample output
 
-Given the 2.4 aux statements:
+Given the 2.4 aux statements (fragment of a diff file):
 
 ```
 # aux
