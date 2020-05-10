@@ -29,9 +29,14 @@ Binaries are provides for Linux (ia32, x86-64, arm7), FreeBSD (x86-64), Windows 
 
 ## example
 
+* Unzip the release archive for your platform
+* The command line application (`box2perm`, `box2perm.exe` etc.) is extracted to a `box2perm` directory.
+* Run the `box2perm` application specifying with the old dump/diff file name and the new output file name:
+
 ```
 ## migrate an inav 2.4 diff (or dump) to 2.5
-$ box2perm mydiff-2.4.txt mydiff-2.5.txt
+$ cd box2perm
+$ ./box2perm mydiff-2.4.txt mydiff-2.5.txt
 ```
 
 ## sample output
