@@ -130,9 +130,7 @@ func main() {
 	}
 
 	input,err := openStdinOrFile(inpfn)
-	if err == nil {
-		defer input.Close()
-	} else {
+	if err != nil {
 		log.Fatal("Can't open input file\n")
 	}
 
@@ -177,9 +175,13 @@ func main() {
 		}
 		fmt.Fprintln(&sb, line)
 	}
+	input.Close()
 	if doconv {
 		fmt.Fprintf(&sb, "### inav 2.5 aux conversion by box2perm %s ###\n",
 			time.Now().Format("2006-01-02T15:04:05-0700"))
+	} else {
+		fmt.Fprintln(os.Stderr,"No conversion performed")
+		return
 	}
 
 	output,err := openStdoutOrFile(outfn)
