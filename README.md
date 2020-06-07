@@ -18,6 +18,7 @@ If inav CLI `diff` or `dump` files are used to migrate setting from an earlier f
 * Update the source `diff` or `dump`, either:
   * using `box2perm` a cross-platform, command line tool to automate the process; or
   * manually edit the file, using the information in the [table below](#additional-information).
+  * Use the online convertor at https://box2perm.now.sh/
 
 # `box2perm`
 
